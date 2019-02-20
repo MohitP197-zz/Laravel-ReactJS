@@ -66037,6 +66037,8 @@ function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66057,21 +66059,71 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Product =
 /*#__PURE__*/
 function (_Component) {
   _inherits(Product, _Component);
 
-  function Product() {
+  function Product(props) {
+    var _this;
+
     _classCallCheck(this, Product);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Product).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Product).call(this, props));
+    _this.state = {
+      value: '',
+      products: ''
+    };
+    return _this;
   }
 
   _createClass(Product, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8000/products').then(function (response) {
+        _this2.setState({
+          products: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "tabRow",
+    value: function tabRow() {
+      if (this.state.products instanceof Array) {
+        return this.state.products.map(function (object, i) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+            key: i
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, i), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, object.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, object.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+            type: "submit",
+            value: "Edit",
+            className: "btn btn-success"
+          }))));
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to Product!"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Products List - Demo"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-10"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "Add Product",
+        className: "btn btn-success"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "table table-hover"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "ID"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Product Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "Product Body"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+        width: "200px"
+      }, "Actions"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, this.tabRow())));
     }
   }]);
 
