@@ -7,7 +7,7 @@ class Product extends Component {
         this.state = {value: '', products: ''};
     }
     componentDidMount() {
-        axios.get('http://localhost:8000/products')
+        axios.get('http://127.0.0.1:8000/products')
             .then(response => {
                 this.setState({ products: response.data });
             })
